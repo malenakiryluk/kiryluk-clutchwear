@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import Header from "./Componentes/Header/NavBar";
+import ItemListConteiner from "./Componentes/Header/ItemListConteiner"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          hola mundo
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+const App = () => {
+  const mensaje = "bienbenidos a clutchWear :)"
+  return(
+    <>
+    <Header/>
+    <ItemListConteiner greeting = {mensaje}/>
+    </>
+
   );
-}
+};
 
 export default App;

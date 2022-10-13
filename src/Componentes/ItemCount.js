@@ -6,8 +6,9 @@ export const ItemCount = ({stock, initial, onAdd}) => {
     const [contador, setContador] = useState(initial);
 
     const handlerClickSuma = () =>{
-        if(setContador < stock){
+        if(contador < stock){
             setContador(contador + 1)
+            console.log("sumaste un producto")
         } 
         else{
             <h1>No hay suficiente stock</h1>
@@ -15,7 +16,7 @@ export const ItemCount = ({stock, initial, onAdd}) => {
     };
 
     const handlerClickResta = () =>{
-        if(setContador > 1){
+        if(contador > 1){
            setContador( contador - 1)
         }
         

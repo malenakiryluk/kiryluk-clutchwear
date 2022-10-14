@@ -25,8 +25,9 @@ const ItemListConteiner = (props) =>{
         .then((data)=>{
             setProductos(data);
         })
-        .catch((data)=>{
+        .catch((error)=>{
             console.log("salio mal");
+            console.log(error);
         })
     },[])
 

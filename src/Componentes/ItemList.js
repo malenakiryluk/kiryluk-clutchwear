@@ -6,11 +6,23 @@ export const ItemList = ({productos}) =>{
     console.log(productos)
 
     return (
-        productos.map((producto)=>{
-           return <Item titulo = {producto.titulo} precio = {producto.precio} key = {producto.id}/>
+            <div style={styles.container}>
+            {productos.map((producto) =>
+                <Item key={producto.id} producto={producto} />
+            )}
+        </div>
             
-        })
     )
 
 
 }
+
+const styles = {
+    container:{
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-around",
+      alignItems: "center",
+      flexWrap: "wrap",
+    }
+  }

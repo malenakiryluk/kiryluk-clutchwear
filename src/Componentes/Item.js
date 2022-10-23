@@ -28,8 +28,12 @@ export const Item = ({producto}) =>{
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
-                    <Link to="/producto/id">
-                        Ver Detalle
+                    <Link to={"/producto/"+ producto.id } > 
+
+                        <button size = "small">
+                            Ver Detalle
+                        </button>
+                        
                     </Link>
                 </CardActions>
             </Card>

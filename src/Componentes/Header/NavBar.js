@@ -17,7 +17,7 @@ const Header = () =>{
       return (
         <header >
          <Link to="/">
-          <img src={logo} alt="BookSTore" />
+          <img src={logo} alt="ClutchWear" />
         </Link>
             <h1 >Clutchwear</h1>
         

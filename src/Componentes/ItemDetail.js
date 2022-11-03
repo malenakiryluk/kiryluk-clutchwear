@@ -4,9 +4,10 @@ import { ItemCount } from "../Componentes/ItemCount"
 
 const ItemDetail = ({ producto }) => {
 
-    const onAdd = () =>{
-        <h1>agregaste un producto al carrito</h1>
-    }
+
+  const onAdd = () =>{
+    console.log("agregaste al carrito")
+  }
 
   return (
     <div>

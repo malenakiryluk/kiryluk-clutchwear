@@ -23,7 +23,7 @@ export const ItemCount = ({stock, initial, onAdd}) => {
     };
 
     const handlerClickAgregarCarrito = ()=>{
-        onAdd();
+        return onAdd();
     };
 
     return (

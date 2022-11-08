@@ -7,10 +7,11 @@ import { useParams } from "react-router-dom";
 const ItemListConteiner = (props) =>{
 
     const [productos, setProductos] = useState([]);
+    const [loading, setLoading] = useState(true)
 
     const { id } = useParams();
 
-  const URL_BASE = 'https://fakestoreapi.com/products?limit=30'
+  const URL_BASE = 'https://fakestoreapi.com/products'
   const URL_CAT = `${URL_BASE}/category/${id} `
 
   useEffect(() => {
@@ -22,6 +23,9 @@ const ItemListConteiner = (props) =>{
       } catch {
         console.log("error");
       } 
+      finally{
+        (setLoading(false))
+      }
     };
     getProductos();
 
@@ -32,8 +36,10 @@ const ItemListConteiner = (props) =>{
     return (
         <main>
             <h1>{props.greeting}</h1>
-
-            <ItemList productos = {productos}/>}
+            {
+              loading ? <h1>Aguarde un minuto...</h1> : <ItemList productos = {productos}/>
+            }
+            
         </main>
     )
 };

@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { ItemCount } from "../Componentes/ItemCount"
+import { Link } from "react-router-dom";
 
 const ItemDetail = ({ producto }) => {
 
 
-  const onAdd = () =>{
+  const [isPressed, setIsPressed] = useState (false)
+
+  const onAdd = (contador) =>{
+    setIsPressed(true)
     console.log("agregaste al carrito")
   }
 
@@ -15,7 +19,16 @@ const ItemDetail = ({ producto }) => {
       <h1>{producto.title}</h1>
       <span>{producto.description}</span>
       <h2>{producto.price}</h2>
-      <ItemCount stock = {6} initial= {1} onAdd= {onAdd}/>
+      
+      {!isPressed ? (
+          <ItemCount stock = {6} initial= {1} onAdd= {onAdd}/>
+        ) : (
+          <Link to="/cart">
+
+            <button>Finalizar compra</button>
+          
+          </Link>
+        )}
     </div>
   );
 };

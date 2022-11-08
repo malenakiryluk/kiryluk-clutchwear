@@ -22,16 +22,13 @@ export const ItemCount = ({stock, initial, onAdd}) => {
         
     };
 
-    const handlerClickAgregarCarrito = ()=>{
-        return onAdd();
-    };
 
     return (
         <div>
             <button onClick = {handlerClickSuma}>+</button>
             <h1>{contador}</h1>
             <button onClick = {handlerClickResta}>-</button>
-            <button onClick = {handlerClickAgregarCarrito}>Agregar al carrito</button>
+            <button onClick = {()=> onAdd(contador)}>Agregar al carrito</button>
         </div>
     )
 }

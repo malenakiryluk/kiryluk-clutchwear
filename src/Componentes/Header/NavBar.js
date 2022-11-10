@@ -11,7 +11,6 @@ const Header = () =>{
         { nombre: " Remeras ", id: 0, ruta: "/categoria/remeras" },
         { nombre: " Zapatillas ", id: 1, ruta: "/categoria/zapatillas" },
         { nombre: " Shorts ", id: 2, ruta: "/categoria/Shorts" },
-        { nombre: " Women's clothing ", id: 3, ruta: "/categoria/women's clothing" },
       ]
   
       return (

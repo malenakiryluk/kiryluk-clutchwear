@@ -13,17 +13,12 @@ const ItemListConteiner = (props) =>{
 
     const { id } = useParams();
 
-  const URL_BASE = 'https://fakestoreapi.com/products'
-  const URL_CAT = `${URL_BASE}/category/${id} `
-
-  
+  const productCollection = collection(db, "products")
+  const q = query(productCollection, where('category', '==', `${id}`))
 
   useEffect(() => {
-
-    const productCollection = collection(db, "products")
-    const q = query(productCollection, where('category', '==', `${id}`))
-
-    getDocs(id ? q : productCollection)
+    
+    getDocs(productCollection)
     .then((result)=>{
       const listProducts = result.docs.map((item)=>{
         return {
@@ -54,7 +49,7 @@ const ItemListConteiner = (props) =>{
     };
     getProductos();*/
 
-  }, [id, URL_BASE, URL_CAT])
+  }, [id])
 
 
     return (

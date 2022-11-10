@@ -8,12 +8,11 @@ export const ItemDeteilConteiner = () => {
   const [producto, setProducto] = useState([]);
 
   const {id} = useParams();
-    
-  useEffect(() => {
 
     const productCollection = collection(db, "products")
     const refDoc = doc(productCollection, id);
-
+    
+  useEffect(() => {
     getDoc(refDoc)
     .then((result)=>{
 

@@ -16,7 +16,30 @@ const ItemListConteiner = (props) =>{
   const URL_BASE = 'https://fakestoreapi.com/products'
   const URL_CAT = `${URL_BASE}/category/${id} `
 
+  
+
   useEffect(() => {
+
+    const productCollection = collection(db, "products")
+    const q = query(productCollection, where('category', '==', `${id}`))
+
+    getDocs(id ? q : productCollection)
+    .then((result)=>{
+      const listProducts = result.docs.map((item)=>{
+        return {
+          ...item.data(),
+          id: item.id
+        }
+      })
+      setProductos(listProducts)
+    })
+    .catch ((error)=>{
+      console.log("error");
+    
+    }) 
+    .finally(setLoading(false))
+
+    /*
     const getProductos = async () => {
       try {
         const res = await fetch(id ? URL_BASE : URL_CAT);
@@ -29,7 +52,7 @@ const ItemListConteiner = (props) =>{
         (setLoading(false))
       }
     };
-    getProductos();
+    getProductos();*/
 
   }, [id, URL_BASE, URL_CAT])
 

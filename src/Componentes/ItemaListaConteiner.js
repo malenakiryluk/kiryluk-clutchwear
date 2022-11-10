@@ -2,6 +2,8 @@ import React, { useEffect , useState } from "react";
 import "./ItemListConteiner.css"
 import { ItemList} from "./ItemList"
 import { useParams } from "react-router-dom";
+import { getDocs, collection, query, where} from "firebase/firestore"
+import { db } from "../firebase/firebase"
 
 
 const ItemListConteiner = (props) =>{
@@ -31,7 +33,6 @@ const ItemListConteiner = (props) =>{
 
   }, [id, URL_BASE, URL_CAT])
 
-    
 
     return (
         <main>

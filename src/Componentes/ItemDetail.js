@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-
+import React, { useState, useContext } from "react";
+import { Context } from "../Context/CustomContext"
 import { ItemCount } from "../Componentes/ItemCount"
 import { Link } from "react-router-dom";
 
@@ -7,10 +7,13 @@ const ItemDetail = ({ producto }) => {
 
 
   const [isPressed, setIsPressed] = useState (false)
+  const { addItem } = useContext(Context)
 
   const onAdd = (contador) =>{
+
+    addItem(producto, contador)
+
     setIsPressed(true)
-    console.log("agregaste al carrito")
   }
 
   return (

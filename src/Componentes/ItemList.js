@@ -5,11 +5,13 @@ export const ItemList = ({productos}) =>{
 
 
     return (
+        <> 
             <div style={styles.container}>
             {productos.map((producto) =>
                 <Item key={producto.id} producto={producto} />
             )}
         </div>
+        </>
             
     )
 

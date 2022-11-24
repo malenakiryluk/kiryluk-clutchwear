@@ -13,14 +13,14 @@ const ItemListConteiner = (props) =>{
 
     const { id } = useParams();
 
-  const productCollection = collection(db, "products")
-  const q = query(productCollection, where('category', '==', `${id}`))
+  const productCollection = collection(db, "productos")
+  const q = id ? query(productCollection, where('category', '==', id )) : productCollection;
 
   useEffect(() => {
     
-    getDocs(productCollection)
+    getDocs(q)
     .then((result)=>{
-      const listProducts = result.docs.map((item)=>{
+      const listProducts = result.docs.map(item=>{
         return {
           ...item.data(),
           id: item.id
@@ -34,22 +34,7 @@ const ItemListConteiner = (props) =>{
     }) 
     .finally(setLoading(false))
 
-    /*
-    const getProductos = async () => {
-      try {
-        const res = await fetch(id ? URL_BASE : URL_CAT);
-        const data = await res.json();
-        setProductos(data);
-      } catch {
-        console.log("error");
-      } 
-      finally{
-        (setLoading(false))
-      }
-    };
-    getProductos();*/
-
-  }, [id])
+  }, [id]);
 
 
     return (

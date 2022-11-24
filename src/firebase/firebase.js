@@ -1,7 +1,6 @@
 
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore"
-import App from "../App";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCtOqNf3pWUST9ffOeTPrw0HxZE25ITxmw",

@@ -5,6 +5,7 @@ import { db } from '../firebase/firebase';
 import {collection, addDoc, serverTimestamp, doc, updateDoc} from "firebase/firestore";
 import DeleteIcon from '@mui/icons-material/Delete';
 import Swal from 'sweetalert2'
+import "./Cart.css";
 
 export const Cart = () => {
 
@@ -70,7 +71,7 @@ export const Cart = () => {
       </div>          
       {cart.map((producto)=>(
         <div key={producto.id} className='prodList'>
-            <img className='prodImg' src={producto.image} alt={producto.title} /> 
+            <img className='prodImg' src={producto.img} alt={producto.title} /> 
             <p className='prod'>{producto.title}</p>
             <p className='prod'>{producto.cantidad}</p>
             <p className='prod'>$ {producto.price * producto.cantidad}</p>

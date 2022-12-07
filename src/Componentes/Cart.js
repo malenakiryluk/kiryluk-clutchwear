@@ -1,30 +1,102 @@
-import React, { useContext } from "react"
+import React, { useContext , useState } from "react"
 import { Context } from "../Context/CustomContext"
 import { Link } from "react-router-dom"
+import { db } from '../firebase/firebase';
+import {collection, addDoc, serverTimestamp, doc, updateDoc} from "firebase/firestore";
+import DeleteIcon from '@mui/icons-material/Delete';
+import Swal from 'sweetalert2'
 
 export const Cart = () => {
 
-  const { cart } = useContext(Context)
-
-  if(cart.length === 0){
-    return <h1>No agregaste nada, puedes ir <Link to ="/">AQUI</Link> </h1>
+  const {cart, qty, total, deleteItem, clear} = useContext(Context);
+    const [user, setUser] = useState({});
+  
+    const updateUser = (event) => {
+      setUser( user => ({...user, [event.target.name]: event.target.value }))
   }
-
+  
+    const updateStock = (e)=>{
+      e.preventDefault();
+      cart.forEach(element => {
+        const updateStock = doc(db, "productos", element.id)
+        updateDoc(updateStock, {Stock: element.Stock - qty})
+      });
+      finalizarCompra();  
+    }
+  
+    const finalizarCompra = ()=>{
+      const ordersCollection = collection(db, "orders");
+      addDoc(ordersCollection, {
+        comprador: user,
+        items: cart, 
+        total,
+        date: serverTimestamp(),
+      })
+      .then(result =>{
+        Swal.fire({
+          title: ("Tu compra fue realizada con exito! Tu numero de  compra es: " +result.id),
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown'
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp'
+          }
+        })
+        })
+      .catch(e=>{
+        console.log(e);
+      })
+      clear();    
+    }
+  
+   
     return (
       <>
-        {cart.length === 0 ? (
-          <h1>No agregaste nada, puedes ir <Link to ="/">AQUI</Link> </h1>
-        ): ( 
-          <>
-            {cart.map((producto)=>{
-
-            <h1 key = {producto.id}>{producto.title}{producto.price}</h1>
-
-            })}
-          </>
-        )
+      {cart.length === 0 ? (
+        
+          <h1 className>
+            No agregaste productos aun, puedes ir <Link to="/">ACA</Link>
+          </h1>
           
-        }
-      </>
-    )
+      ) : (
+        <>
+    <div >
+      <div className='partesProd'>
+        <p className='prod'>Foto</p>
+        <p className='prod'>Producto</p>
+        <p className='prod'>Unidades</p>
+        <p className='prod'>SubTotal</p>
+        <p className='prod'>Borrar</p>
+      </div>          
+      {cart.map((producto)=>(
+        <div key={producto.id} className='prodList'>
+            <img className='prodImg' src={producto.image} alt={producto.title} /> 
+            <p className='prod'>{producto.title}</p>
+            <p className='prod'>{producto.cantidad}</p>
+            <p className='prod'>$ {producto.price * producto.cantidad}</p>
+            <div >
+              <button className='btnDelete' onClick={()=>deleteItem(producto.id)}><DeleteIcon /></button>
+            </div>
+        </div>
+      ))}
+</div>
+      <div>
+        <form action="" className='form' onSubmit={updateStock}>
+            <p>Productos: {qty}</p>
+            <p>Total del carrito: $ {total}</p>            
+              <input onChange={updateUser} placeholder="Nombre" name='name' type='text' required/>
+              <input onChange={updateUser} placeholder="Apellido" name='surname' type='text' required/>
+              <input onChange={updateUser} placeholder="Tel" name='Tel' type='text' />
+              <input onChange={updateUser} placeholder="Email" name='email' type='email' required/>
+              <button className='btnFinalizar' type="submit">Finalizar Compra</button>
+              <button className='btnFinalizar' onClick={clear}>Limpiar Carrito</button>
+        </form>
+                
+      </div>  
+        </>
+      )
+    }
+
+    </>
+  );
   }
